@@ -13,6 +13,12 @@ a DNS spoofing attack via ARP cache poisoning.
 - Two additional network services (research-based)
 - Hands-on Lab: DNS spoofing via ARP cache poisoning (Kali + Ettercap)
 
+## 🗂️ Project Structure
+
+- `docs/` → written answers and research (network basics, services)
+- `lab/` → scripts, sanitized configs, and command notes from the hands-on lab
+- `screenshots/` → evidence from the lab (ARP tables, ettercap output, etc.)
+
 ## 🛠️ Tools Used
 - Kali Linux (VM)
 - Ettercap
