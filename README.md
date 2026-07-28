@@ -1,4 +1,4 @@
-# network-service-security
+# Network-service-security
 Hands-on cybersecurity project covering network security fundamentals, service-level attacks, and a practical DNS spoofing lab via ARP poisoning.
 
 A hands-on cybersecurity project covering core network security concepts, 
