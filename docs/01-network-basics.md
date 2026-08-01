@@ -65,3 +65,20 @@ scanning entirely, though it adds complexity and can be vulnerable if the knock 
 employee devices, guest WiFi) with firewalls between them, an open port on a server is only reachable from the specific subnet allowed to access it — 
 not from the entire network. This is also why isolated/segmented lab environments (like the one used in this project's DNS spoofing exercise) 
 are used to safely contain attacks during testing.
+
+## Deprecated protocols still found in the wild
+
+
+Many older protocols were designed decades ago, before security was a major concern — back then, the priority was just "make it work," not "make it safe." The biggest common flaw across most of them: they send data in plain text (unencrypted), meaning anyone intercepting the traffic can read everything — including passwords.
+
+**Telnet (port 23)** is a protocol used for remote command-line access to devices. It sends all data, including usernames and passwords, in plain 
+text. Anyone intercepting the traffic (e.g., via a man-in-the-middle attack) can read credentials directly. It has been replaced by **SSH (port 22)**, 
+which encrypts the entire session.
+
+**FTP (port 21)** is used for transferring files between a client and a server. Like Telnet, it transmits login credentials and file contents in 
+plain text, making it vulnerable to interception. It has largely been replaced by **SFTP** or **FTPS**, which add encryption on top of file 
+transfer.
+
+**SMBv1 (port 445)** is an older version of the Server Message Block protocol, used for file and printer sharing on Windows networks. It contains 
+several serious vulnerabilities, most notably the one exploited by the **WannaCry ransomware** in 2017, which used the EternalBlue exploit to 
+spread rapidly across networks without any user interaction. SMBv1 has since been disabled by default on modern systems in favor of SMBv2/SMBv3.
