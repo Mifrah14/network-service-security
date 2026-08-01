@@ -37,3 +37,31 @@ an old, unpatched FTP server could be exploited using a known vulnerability for 
 In short, every open port is a potential entry point, and unnecessary open ports increase a device's attack surface — giving attackers more opportunities 
 to find something exploitable.
 
+## Hardening strategy: should unused ports stay open?
+
+By default, ports that don't have an intended use should **not** be left open. This follows the security principle of "default deny" (or least 
+privilege): every open port represents a potential entry point for an attacker, so a port that serves no functional purpose is pure risk with no 
+benefit. The standard practice is to close everything by default and only open what is explicitly needed.
+
+Several strategies are used to enforce this in practice:
+
+**Firewalls** act as the first line of defense, blocking all traffic by default and only allowing specific, defined ports or services through. This 
+is the practical enforcement of "default deny" — rather than manually locking down every port, a firewall rule can simply state which ports are 
+allowed and block everything else.
+
+**Disabling unused services** goes a step further than firewalls. A firewall blocks *access* to a port, but the service behind it may still be 
+running. If the firewall is ever misconfigured or bypassed, that live service becomes reachable again. The more thorough fix is to disable or 
+uninstall services that are not needed, so there is genuinely nothing listening on that port at all.
+
+**Changing default ports** (e.g., running SSH on port 2222 instead of 22) reduces exposure to automated bots that scan for common ports. However, 
+this is "security through obscurity" — a targeted attacker can still scan all 65,536 ports, so this should only be used alongside real access control, 
+never as a replacement for it.
+
+**Port knocking** hides a service completely by keeping its port closed until a specific, pre-arranged sequence of connection attempts to other 
+ports is received. Only after this "secret knock" does the firewall temporarily open the real port for that client. This defeats basic port 
+scanning entirely, though it adds complexity and can be vulnerable if the knock sequence is intercepted on an unencrypted network.
+
+**Network segmentation** limits how far an attacker can move even if they do get in. By splitting a network into separate zones (e.g., servers, 
+employee devices, guest WiFi) with firewalls between them, an open port on a server is only reachable from the specific subnet allowed to access it — 
+not from the entire network. This is also why isolated/segmented lab environments (like the one used in this project's DNS spoofing exercise) 
+are used to safely contain attacks during testing.
